@@ -1,0 +1,248 @@
+\documentclass[11pt]{article}
+
+% ---------- packages ----------
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath, amssymb, amsthm, mathrsfs}
+\usepackage[margin=1in]{geometry}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true, linkcolor=blue!60!black, urlcolor=teal}
+
+% ---------- theorem environments ----------
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\newtheorem{example}[definition]{Example}
+\theoremstyle{plain}
+\newtheorem{theorem}[definition]{Theorem}
+\newtheorem{corollary}[definition]{Corollary}
+
+% ---------- macros ----------
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\CX}{\mathscr{C}}      % space of continuous bounded functions
+\newcommand{\norm}[1]{\left\lVert #1 \right\rVert}
+\newcommand{\abs}[1]{\left\lvert #1 \right\rvert}
+\renewcommand{\to}{\longrightarrow}
+
+\title{\textbf{Rudin, \emph{Principles of Mathematical Analysis}}\\[4pt]
+       Chapter 7 --- Sequences and Series of Functions\\[2pt]
+       \large A High-Level Overview}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+\vspace{-2em}
+
+\begin{abstract}
+\noindent The whole chapter answers \emph{one} question: when we take a limit of
+functions ($f=\lim f_n$ or $f=\sum f_n$), are the good properties
+(continuity, integrability, differentiability) preserved? Equivalently, may two
+limit processes be interchanged? Pointwise convergence is \emph{not} enough
+(four counterexamples); the cure is \textbf{uniform convergence}, after which
+everything is repaired. The chapter culminates in the Arzel\`a--Ascoli and
+Stone--Weierstrass theorems.
+\end{abstract}
+
+% =====================================================================
+\section{The Main Problem (\S7.1--7.6)}
+
+\begin{definition}[Pointwise convergence]
+A sequence $\{f_n\}$ defined on a set $E$ \emph{converges pointwise} to $f$ if
+\[
+   f(x) = \lim_{n\to\infty} f_n(x) \qquad (x\in E),
+\]
+and the \emph{sum} of a series is $f(x)=\displaystyle\sum_{n=1}^{\infty} f_n(x)$.
+\end{definition}
+
+The central question is whether limit operations commute. Asking whether a limit
+of continuous functions is continuous is exactly asking whether
+\begin{equation}\label{eq:interchange}
+   \lim_{t\to x}\lim_{n\to\infty} f_n(t)
+   \;\overset{?}{=}\;
+   \lim_{n\to\infty}\lim_{t\to x} f_n(t).
+\end{equation}
+
+\begin{tcolorbox}[colback=red!4, colframe=red!55!black,
+                  title=\textbf{Pointwise convergence is too weak --- four counterexamples}]
+\begin{description}[leftmargin=2.4em, style=nextline, itemsep=2pt]
+  \item[7.2 (double sequence)] With $\displaystyle s_{m,n}=\frac{m}{m+n}$,
+        \[
+          \lim_{n\to\infty}\lim_{m\to\infty} s_{m,n}=1
+          \neq
+          0=\lim_{m\to\infty}\lim_{n\to\infty} s_{m,n}.
+        \]
+  \item[7.3 (continuous $\to$ discontinuous)] For
+        $\displaystyle f(x)=\sum_{n=0}^{\infty}\frac{x^2}{(1+x^2)^n}$ a convergent
+        series of continuous functions has the discontinuous sum
+        \[
+          f(x)=\begin{cases} 0, & x=0,\\[2pt] 1+x^2, & x\neq 0.\end{cases}
+        \]
+  \item[7.4 (continuous $\to$ non-integrable)]
+        $\displaystyle f(x)=\lim_{m\to\infty}\lim_{n\to\infty}(\cos m!\,\pi x)^{2n}
+         =\begin{cases}1,& x\in\mathbb{Q},\\ 0,& x\notin\mathbb{Q},\end{cases}$
+        the Dirichlet function --- not Riemann integrable.
+  \item[7.5 (derivative fails)] $\displaystyle f_n(x)=\frac{\sin nx}{\sqrt{n}}\to 0=f$,
+        but $f_n'(x)=\sqrt{n}\,\cos nx$, so $f_n'(0)=\sqrt{n}\to\infty\neq f'(0)=0$.
+  \item[7.6 (integral fails)] $f_n(x)=n^2x(1-x^2)^n$ on $[0,1]$ has $f_n\to 0$, yet
+        \[
+          \int_0^1 f_n(x)\,dx=\frac{n^2}{2n+2}\to\infty
+          \neq \int_0^1 \lim_n f_n(x)\,dx = 0.
+        \]
+\end{description}
+\textbf{Conclusion:} $\lim$, $\int$, and $\dfrac{d}{dx}$ do \emph{not} commute in general.
+\end{tcolorbox}
+
+% =====================================================================
+\section{Uniform Convergence (\S7.7--7.10)}
+
+\begin{definition}[Uniform convergence]
+$\{f_n\}\to f$ \emph{uniformly} on $E$ if for every $\varepsilon>0$ there is an
+integer $N$ (depending on $\varepsilon$ \emph{only}, the \emph{same} for all $x$)
+such that
+\[
+   n\ge N \;\Longrightarrow\; \abs{f_n(x)-f(x)}\le \varepsilon
+   \qquad\text{for all } x\in E.
+\]
+\end{definition}
+
+\noindent\emph{The whole point:} in pointwise convergence $N$ may depend on $x$;
+in uniform convergence one $N$ works simultaneously for every $x$.
+
+\begin{theorem}[Cauchy criterion, 7.8]
+$\{f_n\}$ converges uniformly on $E$ iff for every $\varepsilon>0$ there is $N$
+such that
+\[
+   m\ge N,\; n\ge N,\; x\in E \;\Longrightarrow\; \abs{f_n(x)-f_m(x)}\le\varepsilon.
+\]
+\end{theorem}
+
+\begin{theorem}[Sup test, 7.9]
+If $M_n=\displaystyle\sup_{x\in E}\abs{f_n(x)-f(x)}$, then
+$f_n\to f$ uniformly on $E$ iff $M_n\to 0$ as $n\to\infty$.
+\end{theorem}
+
+\begin{theorem}[Weierstrass $M$-test, 7.10]
+If $\abs{f_n(x)}\le M_n$ for all $x\in E$ and $\displaystyle\sum M_n<\infty$, then
+$\displaystyle\sum f_n$ converges uniformly on $E$.
+\end{theorem}
+
+% =====================================================================
+\section{Positive Results and the Space $\CX(X)$ (\S7.11--7.18)}
+
+Uniform convergence repairs every counterexample of \S1:
+
+\begin{theorem}[Interchange of limits, 7.11]
+If $f_n\to f$ uniformly on $E$, $x$ a limit point of $E$, and
+$\lim_{t\to x}f_n(t)=A_n$, then $\{A_n\}$ converges and
+\[
+   \lim_{t\to x} f(t)=\lim_{n\to\infty} A_n,
+   \quad\text{i.e.}\quad
+   \lim_{t\to x}\lim_{n\to\infty} f_n(t)=\lim_{n\to\infty}\lim_{t\to x} f_n(t).
+\]
+\end{theorem}
+
+\begin{theorem}[7.12, 7.16, 7.17]\leavevmode
+\begin{itemize}[leftmargin=1.6em, itemsep=1pt]
+  \item \textbf{(7.12)} A uniform limit of continuous functions is continuous.
+  \item \textbf{(7.16)} If $f_n\to f$ uniformly on $[a,b]$ and $f_n\in\mathscr{R}(\alpha)$, then
+        $\displaystyle\int_a^b f\,d\alpha=\lim_{n\to\infty}\int_a^b f_n\,d\alpha.$
+  \item \textbf{(7.17)} If $f_n$ are differentiable, $\{f_n(x_0)\}$ converges for some
+        $x_0$, and $\{f_n'\}$ converges \emph{uniformly}, then $f_n\to f$ uniformly and
+        $f'(x)=\displaystyle\lim_{n\to\infty} f_n'(x)$.
+\end{itemize}
+\end{theorem}
+
+\begin{theorem}[A continuous nowhere-differentiable function, 7.18]
+There exists a real continuous function on $\R$ which is nowhere differentiable,
+e.g.\ $\displaystyle f(x)=\sum_{n=0}^{\infty}\Big(\tfrac{3}{4}\Big)^{n}\varphi(4^n x)$,
+where $\varphi$ is the distance from $x$ to the nearest integer (convergence is
+uniform by the $M$-test).
+\end{theorem}
+
+\begin{definition}[The metric space $\CX(X)$, 7.14]
+For a metric space $X$, let $\CX(X)$ be the set of all complex-valued, continuous,
+\emph{bounded} functions on $X$, with the \emph{supremum norm}
+\[
+   \norm{f}=\sup_{x\in X}\abs{f(x)},
+   \qquad
+   \norm{f+g}\le\norm{f}+\norm{g}.
+\]
+The distance $\norm{f-g}$ makes $\CX(X)$ a metric space, and convergence in this
+metric is \emph{exactly} uniform convergence.
+\end{definition}
+
+\begin{theorem}[Completeness, 7.15]
+$\CX(X)$ with the sup-norm metric is a \textbf{complete} metric space
+(a Banach space).
+\end{theorem}
+
+% =====================================================================
+\section{Equicontinuity and Arzel\`a--Ascoli (\S7.19--7.25)}
+
+\begin{definition}[Equicontinuity, 7.22]
+A family $\mathscr{F}$ of functions on $E$ is \emph{equicontinuous} if for every
+$\varepsilon>0$ there is $\delta>0$ such that
+\[
+   \abs{x-y}<\delta \;\Longrightarrow\; \abs{f(x)-f(y)}<\varepsilon
+   \qquad\text{for \emph{every} } f\in\mathscr{F}.
+\]
+(One $\delta$ works for the whole family at once.)
+\end{definition}
+
+\begin{theorem}[7.23]
+If $\{f_n\}$ is pointwise bounded on a countable set $E$, then it has a subsequence
+$\{f_{n_k}\}$ converging at every point of $E$.
+\end{theorem}
+
+\begin{theorem}[Arzel\`a--Ascoli, 7.25]
+If $K$ is compact, $f_n\in\CX(K)$, and $\{f_n\}$ is pointwise bounded and
+equicontinuous, then
+\begin{enumerate}[label=(\alph*), leftmargin=2em]
+  \item $\{f_n\}$ is uniformly bounded on $K$;
+  \item $\{f_n\}$ contains a \emph{uniformly} convergent subsequence.
+\end{enumerate}
+This is the function-space analogue of Bolzano--Weierstrass.
+\end{theorem}
+
+% =====================================================================
+\section{The Stone--Weierstrass Theorem (\S7.26--7.33)}
+
+\begin{theorem}[Weierstrass approximation, 7.26]
+If $f$ is continuous on $[a,b]$, there is a sequence of polynomials $P_n$ with
+$P_n\to f$ uniformly on $[a,b]$. Equivalently, polynomials are \emph{dense} in
+$\CX[a,b]$.
+\end{theorem}
+
+\begin{definition}[Algebra, separates points, vanishes nowhere; 7.28--7.30]
+A family $\mathscr{A}$ is an \emph{algebra} if it is closed under $f+g$, $fg$, and
+$cf$. It \emph{separates points} if for $x_1\neq x_2$ some $f\in\mathscr{A}$ has
+$f(x_1)\neq f(x_2)$; it \emph{vanishes at no point} if for each $x$ some
+$f\in\mathscr{A}$ has $f(x)\neq 0$.
+\end{definition}
+
+\begin{theorem}[Stone--Weierstrass, real case, 7.32]
+Let $\mathscr{A}$ be an algebra of real continuous functions on a compact set $K$.
+If $\mathscr{A}$ separates points of $K$ and vanishes at no point of $K$, then the
+uniform closure of $\mathscr{A}$ is \emph{all} of $\CX(K,\R)$.
+\end{theorem}
+
+\begin{theorem}[Complex case, 7.33]
+For a complex algebra the same conclusion holds provided $\mathscr{A}$ is
+\emph{self-adjoint} (closed under complex conjugation). Without this hypothesis
+the theorem fails.
+\end{theorem}
+
+% =====================================================================
+\section*{Where this leads}
+\addcontentsline{toc}{section}{Where this leads}
+Chapter 7 is the methodological hub of the book. Its tools --- uniform
+convergence, the $M$-test, completeness of $\CX(X)$, and Stone--Weierstrass ---
+are used in \textbf{Chapter 8} to define $e^x$, $\sin$, $\cos$, $\log$, the
+$\Gamma$ function via power series, and to develop Fourier series.
+
+\end{document}
