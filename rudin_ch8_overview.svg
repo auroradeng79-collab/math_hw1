@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="980" height="740" viewBox="0 0 980 740" font-family="Georgia, 'Times New Roman', serif">
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#444"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="980" height="740" fill="#fafaf9"/>
+  <text x="490" y="40" text-anchor="middle" font-size="26" font-weight="bold" fill="#1c1917">Rudin · Chapter 8 — Some Special Functions</text>
+  <text x="490" y="66" text-anchor="middle" font-size="15" fill="#57534e" font-style="italic">Payoff chapter: build exp, log, sin, cos, π, Γ rigorously from series — no geometry assumed</text>
+
+  <!-- Foundation box -->
+  <rect x="250" y="88" width="480" height="78" rx="10" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+  <text x="490" y="114" text-anchor="middle" font-size="16" font-weight="bold" fill="#78350f">Foundation: Power Series (§8.1–8.5)</text>
+  <text x="490" y="137" text-anchor="middle" font-size="14" fill="#78350f">f(x)=Σ cₙxⁿ "analytic" · unif. conv. on [−R+δ,R−δ] · diff. termwise</text>
+  <text x="490" y="156" text-anchor="middle" font-size="13" fill="#78350f">8.1 C∞ · 8.2 Abel · 8.4 Taylor · 8.5 identity theorem</text>
+
+  <!-- three constructed function families -->
+  <rect x="40" y="210" width="280" height="118" rx="10" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="180" y="234" text-anchor="middle" font-size="15" font-weight="bold" fill="#1e3a8a">Exp &amp; Log (§8.6)</text>
+  <text x="55" y="258" font-size="13" fill="#1e3a8a">E(z)=Σ zⁿ/n!  (all z∈ℂ)</text>
+  <text x="55" y="279" font-size="13" fill="#1e3a8a">E(z+w)=E(z)E(w)</text>
+  <text x="55" y="300" font-size="13" fill="#1e3a8a">8.6 (eˣ)′=eˣ, eˣ⁺ʸ=eˣeʸ</text>
+  <text x="55" y="320" font-size="13" fill="#1e3a8a">log = inverse of exp</text>
+
+  <rect x="350" y="210" width="280" height="118" rx="10" fill="#dcfce7" stroke="#15803d" stroke-width="1.5"/>
+  <text x="490" y="234" text-anchor="middle" font-size="15" font-weight="bold" fill="#14532d">Trig Functions (§8.7)</text>
+  <text x="365" y="258" font-size="13" fill="#14532d">C(x)=½[E(ix)+E(−ix)]</text>
+  <text x="365" y="279" font-size="13" fill="#14532d">S(x)=1/2i[E(ix)−E(−ix)]</text>
+  <text x="365" y="300" font-size="13" fill="#14532d">define π · period 2π</text>
+  <text x="365" y="320" font-size="13" fill="#14532d">8.7 unit circle, circ.=2π</text>
+
+  <rect x="660" y="210" width="280" height="118" rx="10" fill="#fce7f3" stroke="#a21caf" stroke-width="1.5"/>
+  <text x="800" y="234" text-anchor="middle" font-size="15" font-weight="bold" fill="#701a75">Completeness of ℂ (§8.8)</text>
+  <text x="675" y="258" font-size="13" fill="#701a75">Fundamental Theorem</text>
+  <text x="675" y="279" font-size="13" fill="#701a75">of Algebra:</text>
+  <text x="675" y="300" font-size="13" fill="#701a75">8.8 every non-constant</text>
+  <text x="675" y="320" font-size="13" fill="#701a75">P(z) has a root in ℂ</text>
+
+  <line x1="380" y1="166" x2="180" y2="210" stroke="#444" stroke-width="1.4" marker-end="url(#arrow)"/>
+  <line x1="490" y1="166" x2="490" y2="210" stroke="#444" stroke-width="1.4" marker-end="url(#arrow)"/>
+  <line x1="600" y1="166" x2="800" y2="210" stroke="#444" stroke-width="1.4" marker-end="url(#arrow)"/>
+
+  <!-- two deep applications -->
+  <rect x="40" y="392" width="430" height="166" rx="10" fill="#e0e7ff" stroke="#4338ca" stroke-width="1.5"/>
+  <text x="255" y="418" text-anchor="middle" font-size="15" font-weight="bold" fill="#312e81">Fourier Series (§8.9–8.16)</text>
+  <text x="55" y="443" font-size="13" fill="#312e81">8.9  trigonometric polynomials</text>
+  <text x="55" y="464" font-size="13" fill="#312e81">8.10 orthonormal systems, Fourier coeffs cₙ</text>
+  <text x="55" y="485" font-size="13" fill="#312e81">8.11 sₙ = best mean-square (L²) approximation</text>
+  <text x="55" y="506" font-size="13" fill="#312e81">8.12 Bessel inequality  ·  8.14 localization</text>
+  <text x="55" y="527" font-size="13" fill="#312e81">8.15 trig polys dense (Stone–Weierstrass!)</text>
+  <text x="55" y="548" font-size="13" fill="#312e81">8.16 Parseval's theorem  Σ|cₙ|² = (1/2π)∫|f|²</text>
+
+  <rect x="510" y="392" width="430" height="166" rx="10" fill="#ccfbf1" stroke="#0f766e" stroke-width="1.5"/>
+  <text x="725" y="418" text-anchor="middle" font-size="15" font-weight="bold" fill="#134e4a">The Gamma Function (§8.17–8.22)</text>
+  <text x="525" y="443" font-size="13" fill="#134e4a">8.17 Γ(x)=∫₀^∞ t^(x−1)e^(−t) dt   (x&gt;0)</text>
+  <text x="525" y="464" font-size="13" fill="#134e4a">8.18 Γ(x+1)=xΓ(x), Γ(n+1)=n!, log Γ convex</text>
+  <text x="525" y="485" font-size="13" fill="#134e4a">8.19 Bohr–Mollerup: those 3 props ⇒ Γ unique</text>
+  <text x="525" y="506" font-size="13" fill="#134e4a">8.20 Beta  B(x,y)=Γ(x)Γ(y)/Γ(x+y)</text>
+  <text x="525" y="527" font-size="13" fill="#134e4a">8.22 Stirling  Γ(x+1) ~ (x/e)ˣ√(2πx)</text>
+  <text x="525" y="548" font-size="13" fill="#134e4a">interpolates the factorial to real/complex x</text>
+
+  <line x1="300" y1="328" x2="255" y2="392" stroke="#444" stroke-width="1.4" marker-end="url(#arrow)"/>
+  <line x1="690" y1="328" x2="725" y2="392" stroke="#444" stroke-width="1.4" marker-end="url(#arrow)"/>
+  <text x="150" y="368" font-size="12" fill="#4338ca" font-style="italic">exp/trig + Ch.7 Stone–Weierstrass</text>
+  <text x="690" y="368" font-size="12" fill="#0f766e" font-style="italic">improper integrals + convexity</text>
+
+  <text x="490" y="588" text-anchor="middle" font-size="12" fill="#78716c">Book pp. 172–203  ·  uses Ch.7 tools (uniform convergence, M-test, Stone–Weierstrass) as its engine</text>
+</svg>
